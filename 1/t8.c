@@ -2,35 +2,26 @@
 
 int main( void )
 {
-  int i=0, x=0, y=0, z=0;
+  int x, y, z, i, j;
 
   while (scanf("%d %d %d", &x,&y,&z)!=EOF)
   {
-    if (x,y==1)
+    for (i=0;i<y;i++)
     {
-      printf("#\n");
-    }
-    else
-    {
-      for (i=0;i<x;i++)
+      for (j=0;j<x;j++)
       {
-        printf("#");
-      }
-      printf("\n");
-
-      for (i=0;i<(y-2);i++)
-      {
-        printf("#");
-        for (j=0;j<(x-2);j++)
+        if (i==0 || i==y-1)
+        {
+          printf("#");
+        }
+        else if (j==0 || j==x-1)
+        {
+          printf("#");
+        }
+        else
         {
           printf(".");
         }
-        printf("#");
-        printf("\n");
-      }
-      for (i=0;i<x;i++)
-      {
-        printf("#");
       }
       printf("\n");
     }
