@@ -25,7 +25,6 @@ int main( void )
     if (ch=='\n')
     {
       linecount++;
-      charcount--;
     }
   }
   printf("%lu %lu %lu\n", charcount, wordcount, linecount );
