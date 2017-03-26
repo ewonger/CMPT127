@@ -21,10 +21,10 @@ int main( int argc, char* argv[] )
       found=0;
       for (n=1;n<argc;n++)
       {
-        if (strcmp(tempArr,argv[n])==0)
+        if (strcmp(argv[n],tempArr)==0)
         {
-          found=1;
           printf("CENSORED");
+          found=1;
         }
       }
       if(found==0)
