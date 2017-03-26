@@ -6,10 +6,8 @@ int main( int argc, char* argv[] )
 {
   int ch;
   int found=0;
-  int len2, k=0, i=0, count=0, n=0;
-  int word=0, last;
+  int i=0, n=0;
   char tempArr[128];
-  char newArr[128];
 
   while (EOF!=(ch=getchar()))
   {
