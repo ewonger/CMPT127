@@ -7,7 +7,7 @@ int main( int argc, char* argv[] )
   int ch;
   int found=0;
   int i=0, n=0;
-  char tempArr[128];
+  char tempArr[128]={0};
 
   while (EOF!=(ch=getchar()))
   {
