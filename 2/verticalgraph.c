@@ -16,11 +16,11 @@ int main (void)
     ++i;
   }
   count=max;
-  for (n=max-1;n>=0;n--)
+  for (n=max-2;n>=0;n--)
   {
     for (k=0;k<i;k++)
     {
-      if (Arr[k]>count)
+      if (Arr[k]>=count)
       {
         printf("#");
       }
