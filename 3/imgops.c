@@ -20,8 +20,8 @@
 
 
 // get the value in the array at coordinate (x,y)
-uint8_t get_pixel( const uint8_t array[], 
-           unsigned int cols, 
+uint8_t get_pixel( const uint8_t array[],
+           unsigned int cols,
            unsigned int rows,
            unsigned int x,
            unsigned int y )
@@ -32,8 +32,8 @@ uint8_t get_pixel( const uint8_t array[],
 }
 
 // set the pixel at coordinate {x,y} to the specified color
-void set_pixel( uint8_t array[], 
-        unsigned int cols, 
+void set_pixel( uint8_t array[],
+        unsigned int cols,
         unsigned int rows,
         unsigned int x,
         unsigned int y,
@@ -42,85 +42,153 @@ void set_pixel( uint8_t array[],
     assert( x < cols );
     assert( y < rows );
     array[ y * cols + x ] = color;
-} 
+}
 
-// Set every pixel to 0 (black) 
+// Set every pixel to 0 (black)
 void zero( uint8_t array[],
 	   unsigned int cols,
 	   unsigned int rows )
 {
   // your code here.
+  memset(array,0,cols*rows*sizeof(uint8_t));
 }
 
 // Returns a pointer to a freshly allocated array that contains the
 // same values as the original array, or a null pointer if the
 // allocation fails. The caller is responsible for freeing the array
 // later.
-uint8_t* copy( const uint8_t array[], 
-           unsigned int cols, 
+uint8_t* copy( const uint8_t array[],
+           unsigned int cols,
            unsigned int rows )
 {
   // your code here
-  return NULL;
+  int i=0;
+
+  uint8_t* newArr=malloc(x*y*sizeof(uint8_t))
+  if (newArr!=0)
+  {
+    for(i=0;i<x*y;i++)
+    {
+      newArr[i]=array[i];
+    }
+    return newArr;
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
 
 /*-------------------------------------------------
-  PART 1: OPERATIONS ON THE WHOLE IMAGE 
+  PART 1: OPERATIONS ON THE WHOLE IMAGE
 */
 
 /* TASK 1 - three easy functions to get started */
 
 // Return the darkest color that appears in the array; i.e. the
 // smallest value
-uint8_t min( const uint8_t array[], 
-	     unsigned int cols, 
+uint8_t min( const uint8_t array[],
+	     unsigned int cols,
 	     unsigned int rows )
 {
   // your code here
-  return 0;
+  int min=0, i=0;
+
+  for (i=0;i<cols*rows;i++)
+  {
+    if (array[i]<=min)
+    {
+      min=array[i];
+    }
+  }
+  return min;
 }
 
 // Return the lightest color that appears in the array; i.e. the
 // largest value
-uint8_t max( const uint8_t array[], 
-		 unsigned int cols, 
+uint8_t max( const uint8_t array[],
+		 unsigned int cols,
 		 unsigned int rows )
 {
   // your code here
-  return 0;
+  int max=0, i=0;
+
+  for (i=0,i<cols*rows;i++)
+  {
+    if (array[i]>=max)
+    {
+      max=array[i];
+    }
+  }
+  return max;
 }
 
 // TASK 2
 
 //  Replace every instance of pre_color with post_color.
-void replace_color(  uint8_t array[], 
-		     unsigned int cols, 
+void replace_color(  uint8_t array[],
+		     unsigned int cols,
 		     unsigned int rows,
 		     uint8_t pre_color,
 		     uint8_t post_color )
 {
   // your code here
+  int i=0;
+
+  for (i=0;i<cols*rows;i++)
+  {
+    if (array[i]==pre_color)
+    {
+      array[i]=post_color;
+    }
+  }
 }
 
 /* TASK 3  - two functions */
 
 
 // flip the image, left-to-right, like in a mirror.
-void flip_horizontal( uint8_t array[], 
-              unsigned int cols, 
+void flip_horizontal( uint8_t array[],
+              unsigned int cols,
               unsigned int rows )
 {
   // your code here
+  int i=0, k=0, lastindex, swap, index, n=0;
+
+  for (i=0;i<cols;i++)
+  {
+    for (k=0,n=rows-1;k<(rows/2);k++,n--)
+    {
+      index=k+i*rows;
+      lastindex=n+i*rows;
+      swap=array[index];
+      array[index]=array[lastindex];
+      array[lastindex]=swap;
+    }
+  }
 }
 
 // flip the image top-to-bottom.
-void flip_vertical( uint8_t array[], 
-            unsigned int cols, 
+void flip_vertical( uint8_t array[],
+            unsigned int cols,
             unsigned int rows )
 {
     // your code here
+    int i=0, k=0, lastindex, swap, index, n=0;
+
+    for (i=0, n=cols-1;i<(cols/2);i++, n--)
+    {
+      for (k=0;k<rows;k++)
+      {
+        index=k+i*rows;
+        lastindex=k+n*rows;
+        swap=array[index];
+        array[index]=array[lastindex];
+        array[lastindex]=swap;
+      }
+    }
 }
 
 /* TASK 4 */
@@ -129,14 +197,29 @@ void flip_vertical( uint8_t array[],
 // equals color. Search from left-to-right, top-to-bottom. If it is
 // found, store the coordinates in *x and *y and return 1. If it is
 // not found, return 0.
-int locate_color(  const uint8_t array[], 
-		   unsigned int cols, 
+int locate_color(  const uint8_t array[],
+		   unsigned int cols,
 		   unsigned int rows,
 		   uint8_t color,
 		   unsigned int *x,
 		   unsigned int *y )
 {
     // your code here
+    int i=0, k=0, index;
+
+    for (i=0;i<cols;i++)
+    {
+      for (k=0;k<rows;k++)
+      {
+        index=k+*rows;
+        if (array[index]==color)
+        {
+          *x=k;
+          *y=i;
+          return 1;
+        }
+      }
+    }
     return 0;
 }
 
@@ -144,12 +227,17 @@ int locate_color(  const uint8_t array[],
 /* TASK 5 */
 
 // Invert the image, so that black becomes white and vice versa, and
-// light shades of grey become the corresponding dark shade. 
-void invert( uint8_t array[], 
-         unsigned int cols, 
+// light shades of grey become the corresponding dark shade.
+void invert( uint8_t array[],
+         unsigned int cols,
          unsigned int rows )
 {
     // your code here
+    int i=0;
+    for (i=0;i<cols*rows;i++)
+    {
+      array[i]=255-array[i];
+    }
 }
 
 /* TASK 6 */
@@ -162,7 +250,16 @@ void scale_brightness( uint8_t array[],
             unsigned int rows,
             double scale_factor )
 {
-  // your code here
+    // your code here
+    int i=0;
+    for (i=0;i<cols*rows;i++)
+    {
+      array[i]=round(array[i]*scale_factor);
+      if (array[i]>255)
+      {
+        array[i]=255;
+      }
+    }
 }
 
 
@@ -170,22 +267,43 @@ void scale_brightness( uint8_t array[],
 
 // Normalize the dynamic range of the image, i.e. Shift and scale the
 // pixel colors so that that darkest pixel is 0 and the lightest pixel
-// is 255. Hint: you already wrote min() and max(). 
+// is 255. Hint: you already wrote min() and max().
 void normalize( uint8_t array[],
         unsigned int cols,
         unsigned int rows )
 {
     // your code here
+    int min=0,max=0,i=0;
+
+    for (i=0;i<cols*rows;i++)
+    {
+      if (array[i]<=min)
+      {
+        min=array[i];
+      }
+      if (array[i]>=max)
+      {
+        max=array[i];
+      }
+    }
+    for (i=0;i<cols*rows;i++)
+    {
+      array[i]=array[i]-min;
+    }
+    for (i=0;i<cols*rows;i++)
+    {
+      array[i]=array[i]*(255/max);
+    }
 }
 
 /* TASK 8 */
 
-// Return a new image of size rows/2 by cols/2 If the original image              
-// has an odd number of columns, ignore its rightmost column. If the              
-// original image has an odd number of rows, ignore its bottom row.               
-// The value of a pixel at (p,q) in the new image is the average of               
-// the four pixels at (2p,2q), (2p+1,2q), (2p+1,2q+1), (2p,2q+1) in               
-// the original image.                                                            
+// Return a new image of size rows/2 by cols/2 If the original image
+// has an odd number of columns, ignore its rightmost column. If the
+// original image has an odd number of rows, ignore its bottom row.
+// The value of a pixel at (p,q) in the new image is the average of
+// the four pixels at (2p,2q), (2p+1,2q), (2p+1,2q+1), (2p,2q+1) in
+// the original image.
 uint8_t* half( const uint8_t array[],
 	       unsigned int cols,
 	       unsigned int rows )
@@ -206,7 +324,7 @@ uint8_t* half( const uint8_t array[],
 
   The region includes all the columns from [left, right-1] inclusive,
   and allthe rows from [top, bottom-1] inclusive.
-  
+
   In every case, you may assume that left <= right and top <= bottom:
   do not need to test for this.
 
@@ -214,7 +332,7 @@ uint8_t* half( const uint8_t array[],
   implies that if left == right or top == bottom, the region has no
   area and is defined as "empty". Each function notes how to handle
   empty regions.
- 
+
   In every function, use assert() to test bounds on the region
   corners.
 */
@@ -223,8 +341,8 @@ uint8_t* half( const uint8_t array[],
 
 // Set every pixel in the region to color. If the region is empty, the
 // image must be unchanged.
-void region_set( uint8_t array[], 
-         unsigned int cols, 
+void region_set( uint8_t array[],
+         unsigned int cols,
          unsigned int rows,
          unsigned int left,
          unsigned int top,
@@ -240,8 +358,8 @@ void region_set( uint8_t array[],
 // Return the sum of all the pixels in the region. Notice the large
 // return type to handle potentially large numbers. Empty regions
 // return the sum 0.
-unsigned long int region_integrate( const uint8_t array[], 
-                    unsigned int cols, 
+unsigned long int region_integrate( const uint8_t array[],
+                    unsigned int cols,
                     unsigned int rows,
                     unsigned int left,
                     unsigned int top,
@@ -258,8 +376,8 @@ unsigned long int region_integrate( const uint8_t array[],
 // a null pointer. If memory allocation fails, return a null
 // pointer. The caller is responsible for freeing the returned array
 // later.
-uint8_t* region_copy( const uint8_t array[], 
-              unsigned int cols, 
+uint8_t* region_copy( const uint8_t array[],
+              unsigned int cols,
               unsigned int rows,
               unsigned int left,
               unsigned int top,
@@ -269,5 +387,3 @@ uint8_t* region_copy( const uint8_t array[],
     // your code here
     return NULL;
 }
-
-
