@@ -64,7 +64,7 @@ uint8_t* copy( const uint8_t array[],
   // your code here
   int i=0;
   uint8_t* newArr=malloc(cols*rows*sizeof(uint8_t));
-  if (newArr!=NULL)
+  if (newArr!=0)
   {
     for(i=0;i<cols*rows;i++)
     {
@@ -308,14 +308,14 @@ uint8_t* half( const uint8_t array[],
 	       unsigned int rows )
 {
   // your code here
-  uint8_t* newArr=malloc((cols/2)*(rows/2)*sizeof(uint8_t));
-  for (i=0;i<cols;i++)
-  {
-    for (k=0;k<rows;k++)
-    {
-
-    }
-  }
+  // uint8_t* newArr=malloc((cols/2)*(rows/2)*sizeof(uint8_t));
+  // for (i=0;i<cols;i++)
+  // {
+  //   for (k=0;k<rows;k++)
+  //   {
+  //
+  //   }
+  // }
   return NULL;
 }
 
