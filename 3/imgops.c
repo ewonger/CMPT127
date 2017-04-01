@@ -63,8 +63,7 @@ uint8_t* copy( const uint8_t array[],
 {
   // your code here
   int i=0;
-
-  uint8_t* newArr=malloc(cols*rows*sizeof(uint8_t))
+  uint8_t* newArr=malloc(cols*rows*sizeof(uint8_t));
   if (newArr!=NULL)
   {
     for(i=0;i<cols*rows;i++)
@@ -233,7 +232,7 @@ void invert( uint8_t array[],
          unsigned int rows )
 {
     // your code here
-    int i=0;
+    unsigned                        int i=0;
     for (i=0;i<cols*rows;i++)
     {
       array[i]=255-array[i];
@@ -273,7 +272,7 @@ void normalize( uint8_t array[],
         unsigned int rows )
 {
     // your code here
-    int min=0,max=0,i=0;
+    unsigned int min=0,max=0,i=0;
 
     for (i=0;i<cols*rows;i++)
     {
@@ -309,7 +308,7 @@ uint8_t* half( const uint8_t array[],
 	       unsigned int rows )
 {
   // your code here
-  uint8_t* newArr=malloc((cols/2)*(rows/2)*sizeof(uint8_t))
+  uint8_t* newArr=malloc((cols/2)*(rows/2)*sizeof(uint8_t));
   for (i=0;i<cols;i++)
   {
     for (k=0;k<rows;k++)
