@@ -65,9 +65,9 @@ uint8_t* copy( const uint8_t array[],
   int i=0;
 
   uint8_t* newArr=malloc(x*y*sizeof(uint8_t))
-  if (newArr!=0)
+  if (newArr!=NULL)
   {
-    for(i=0;i<x*y;i++)
+    for(i=0;i<cols*rows;i++)
     {
       newArr[i]=array[i];
     }
@@ -115,7 +115,7 @@ uint8_t max( const uint8_t array[],
   // your code here
   int max=0, i=0;
 
-  for (i=0,i<cols*rows;i++)
+  for (i=0;i<cols*rows;i++)
   {
     if (array[i]>=max)
     {
@@ -205,13 +205,13 @@ int locate_color(  const uint8_t array[],
 		   unsigned int *y )
 {
     // your code here
-    int i=0, k=0, index;
+    unsigned int i=0, k=0, index;
 
     for (i=0;i<cols;i++)
     {
       for (k=0;k<rows;k++)
       {
-        index=k+*rows;
+        index=k+i*rows;
         if (array[index]==color)
         {
           *x=k;
@@ -309,6 +309,14 @@ uint8_t* half( const uint8_t array[],
 	       unsigned int rows )
 {
   // your code here
+  uint8_t* newArr=malloc((cols/2)*(rows/2)*sizeof(uint8_t))
+  for (i=0;i<cols;i++)
+  {
+    for (k=0;k<rows;k++)
+    {
+
+    }
+  }
   return NULL;
 }
 
