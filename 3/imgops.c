@@ -64,7 +64,7 @@ uint8_t* copy( const uint8_t array[],
   // your code here
   int i=0;
 
-  uint8_t* newArr=malloc(x*y*sizeof(uint8_t))
+  uint8_t* newArr=malloc(cols*rows*sizeof(uint8_t))
   if (newArr!=NULL)
   {
     for(i=0;i<cols*rows;i++)
