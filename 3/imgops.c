@@ -93,7 +93,7 @@ uint8_t min( const uint8_t array[],
 	     unsigned int rows )
 {
   // your code here
-  int min=0, i=0;
+  int min=array[0], i=0;
 
   for (i=0;i<cols*rows;i++)
   {
@@ -154,20 +154,19 @@ void flip_horizontal( uint8_t array[],
               unsigned int rows )
 {
   // your code here
-  int i=0, k=0, lastindex, swap, index, n=0;
+  int i=0, k=0, lastindex, swap, index;
 
-  for (i=0;i<cols;i++)
+  for (i=0;i<rows;i++)
   {
-    for (k=0,n=rows-1;k<(rows/2);k++,n--)
+    for (k=0;k<(cols/2);k++)
     {
-      index=k+i*rows;
-      lastindex=n+i*rows;
+      index=k+i*cols;
+      lastindex=cols-1-k+i*cols;
       swap=array[index];
       array[index]=array[lastindex];
       array[lastindex]=swap;
     }
   }
-}
 
 // flip the image top-to-bottom.
 void flip_vertical( uint8_t array[],
@@ -177,12 +176,12 @@ void flip_vertical( uint8_t array[],
     // your code here
     int i=0, k=0, lastindex, swap, index, n=0;
 
-    for (i=0, n=cols-1;i<(cols/2);i++, n--)
+    for (i=0,n=rows-1;i<(rows/2);i++,n--)
     {
-      for (k=0;k<rows;k++)
+      for (k=0;k<cols;k++)
       {
-        index=k+i*rows;
-        lastindex=k+n*rows;
+        index=k+i*cols;
+        lastindex=k+n*cols;
         swap=array[index];
         array[index]=array[lastindex];
         array[lastindex]=swap;
@@ -206,11 +205,11 @@ int locate_color(  const uint8_t array[],
     // your code here
     unsigned int i=0, k=0, index;
 
-    for (i=0;i<cols;i++)
+    for (i=0;i<rows;i++)
     {
-      for (k=0;k<rows;k++)
+      for (k=0;k<cols;k++)
       {
-        index=k+i*rows;
+        index=k+i*cols;
         if (array[index]==color)
         {
           *x=k;
@@ -232,7 +231,7 @@ void invert( uint8_t array[],
          unsigned int rows )
 {
     // your code here
-    unsigned                        int i=0;
+    unsigned int i=0;
     for (i=0;i<cols*rows;i++)
     {
       array[i]=255-array[i];
@@ -272,7 +271,7 @@ void normalize( uint8_t array[],
         unsigned int rows )
 {
     // your code here
-    unsigned int min=0,max=0,i=0;
+    unsigned int min=array[0],max=0,i=0;
 
     for (i=0;i<cols*rows;i++)
     {
@@ -308,14 +307,14 @@ uint8_t* half( const uint8_t array[],
 	       unsigned int rows )
 {
   // your code here
-  // uint8_t* newArr=malloc((cols/2)*(rows/2)*sizeof(uint8_t));
-  // for (i=0;i<cols;i++)
-  // {
-  //   for (k=0;k<rows;k++)
-  //   {
-  //
-  //   }
-  // }
+  uint8_t* newArr=malloc((cols/2)*(rows/2)*sizeof(uint8_t));
+  for (i=0;i<cols;i++)
+  {
+    for (k=0;k<rows;k++)
+    {
+
+    }
+  }
   return NULL;
 }
 
