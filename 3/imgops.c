@@ -93,7 +93,7 @@ uint8_t min( const uint8_t array[],
 	     unsigned int rows )
 {
   // your code here
-  int min=array[0], i=0;
+  unsigned int min=array[0], i=0;
 
   for (i=0;i<cols*rows;i++)
   {
@@ -112,7 +112,7 @@ uint8_t max( const uint8_t array[],
 		 unsigned int rows )
 {
   // your code here
-  int max=0, i=0;
+  unsigned int max=0, i=0;
 
   for (i=0;i<cols*rows;i++)
   {
@@ -134,7 +134,7 @@ void replace_color(  uint8_t array[],
 		     uint8_t post_color )
 {
   // your code here
-  int i=0;
+  unsigned int i=0;
 
   for (i=0;i<cols*rows;i++)
   {
@@ -154,7 +154,7 @@ void flip_horizontal( uint8_t array[],
               unsigned int rows )
 {
   // your code here
-  int i=0, k=0, lastindex, swap, index;
+  unsigned int i=0, k=0, lastindex, swap, index;
 
   for (i=0;i<rows;i++)
   {
@@ -174,7 +174,7 @@ void flip_vertical( uint8_t array[],
             unsigned int rows )
 {
     // your code here
-    int i=0, k=0, lastindex, swap, index, n=0;
+    unsigned int i=0, k=0, lastindex, swap, index, n=0;
 
     for (i=0,n=rows-1;i<(rows/2);i++,n--)
     {
@@ -249,7 +249,7 @@ void scale_brightness( uint8_t array[],
             double scale_factor )
 {
     // your code here
-    int i=0;
+    unsigned int i=0;
     for (i=0;i<cols*rows;i++)
     {
       array[i]=round(array[i]*scale_factor);
@@ -328,6 +328,7 @@ uint8_t* half( const uint8_t array[],
         newArr[index]=(array[2*index]+array[(2*index)+1]+array[(2*index)+cols]+array[(2*index)+cols+1])/4
       }
     }
+    return newArr;
   }
   else
   {
@@ -456,6 +457,7 @@ uint8_t* region_copy( const uint8_t array[],
         ++n;
       }
     }
+    return newArr;
   }
   else
   {
