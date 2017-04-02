@@ -307,15 +307,32 @@ uint8_t* half( const uint8_t array[],
 	       unsigned int rows )
 {
   // your code here
+  unsigned int i=0,k=0,index;
   uint8_t* newArr=malloc((cols/2)*(rows/2)*sizeof(uint8_t));
-  for (i=0;i<cols;i++)
-  {
-    for (k=0;k<rows;k++)
-    {
 
+  if (newArr!=0)
+  {
+    if (rows%2==1)
+    {
+      rows=rows-1;
+    }
+    if (cols%2==1)
+    {
+      cols=cols-1;
+    }
+    for (i=0;i<rows/2;i++)
+    {
+      for (k=0;k<cols/2;k++)
+      {
+        index=k+i*cols;
+        newArr[index]=(array[2*index]+array[(2*index)+1]+array[(2*index)+cols]+array[(2*index)+cols+1])/4
+      }
     }
   }
-  return NULL;
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -356,7 +373,24 @@ void region_set( uint8_t array[],
          unsigned int bottom,
          uint8_t color )
 {
-    // your code here
+  // your code here
+  unsigned int i, k, index;
+  //assert right<=cols and bottom <=rows
+  if (right==left ||top==bottom)
+  {
+    return;
+  }
+  else
+  {
+    for (i=top;i<bottom;i++)
+    {
+      for (k=left;k<right;k++)
+      {
+        index=k+i*cols;
+        array[index]=color;
+      }
+    }
+  }
 }
 
 /* TASK 10 */
@@ -372,8 +406,26 @@ unsigned long int region_integrate( const uint8_t array[],
                     unsigned int right,
                     unsigned int bottom )
 {
-    // your code here
-    return 0;
+  // your code here
+  unsigned int i=0,k=0,index;
+  unsigned long int sum=0;
+  //assert right<=cols and bottom <=rows
+  if (right==left ||top==bottom)
+  {
+    return sum;
+  }
+  else
+  {
+    for (i=top;i<bottom;i++)
+    {
+      for (k=left;k<right;k++)
+      {
+        index=k+i*cols;
+        sum=sum+array[index];
+      }
+    }
+    return sum;
+  }
 }
 
 /* TASK 11 */
@@ -390,6 +442,23 @@ uint8_t* region_copy( const uint8_t array[],
               unsigned int right,
               unsigned int bottom )
 {
-    // your code here
+  // your code here
+  unsigned int i, k, index, n=0;
+  uint8_t* newArr=malloc((right-left)*(bottom-top)*sizeof(uint8_t));
+  if (newArr>0)
+  {
+    for (i=top;i<bottom;i++)
+    {
+      for (k=left;k<right;k++)
+      {
+        index=k+i*cols;
+        newArr[n]=array[index]
+        ++n;
+      }
+    }
+  }
+  else
+  {
     return NULL;
+  }
 }
