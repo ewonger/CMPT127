@@ -460,7 +460,7 @@ uint8_t* region_copy( const uint8_t array[],
 
   if (newArr>0||right-left>0||bottom-top>0)
   {
-    memset(newArr,0,(right-left)*(bottom-top)*sizeof(uint8_t))
+    memset(newArr,0,(right-left)*(bottom-top)*sizeof(uint8_t));
     for (i=top;i<bottom;i++)
     {
       for (k=left;k<right;k++)
