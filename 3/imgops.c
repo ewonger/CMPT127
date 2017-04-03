@@ -457,10 +457,12 @@ uint8_t* region_copy( const uint8_t array[],
   // your code here
   unsigned int i, k, index, n=0;
   uint8_t* newArr=malloc((right-left)*(bottom-top)*sizeof(uint8_t));
-  memset(newArr,0,(right-left)*(bottom-top)*sizeof(uint8_t));
-
   if (newArr>0)
   {
+    for (i=0;i<(right-left)*(bottom-top);i++)
+    {
+      newArr[i]=0;
+    }
     for (i=top;i<bottom;i++)
     {
       for (k=left;k<right;k++)
