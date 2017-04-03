@@ -297,7 +297,7 @@ void normalize( uint8_t array[],
     }
     for (i=0;i<cols*rows;i++)
     {
-      num=(array[i]*255)/max;
+      num=round((array[i]*255)/max);
       array[i]=num;
     }
 }
