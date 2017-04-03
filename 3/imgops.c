@@ -277,7 +277,7 @@ void normalize( uint8_t array[],
         unsigned int rows )
 {
     // your code here
-    unsigned int min=255,max=0,i=0,num;
+    double min=255,max=0,i=0,num;
 
     for (i=0;i<cols*rows;i++)
     {
@@ -290,14 +290,10 @@ void normalize( uint8_t array[],
         max=array[i];
       }
     }
+
     for (i=0;i<cols*rows;i++)
     {
-      num=array[i]-min;
-      array[i]=num;
-    }
-    for (i=0;i<cols*rows;i++)
-    {
-      num=ceil((array[i]*255)/max);
+      num=round(((array[i]-min)/max)*255);
       array[i]=num;
     }
 }
@@ -334,7 +330,7 @@ uint8_t* half( const uint8_t array[],
       for (k=0;k<cols;k=k+2)
       {
         index=k+i*cols;
-        num=round((array[index]+array[(index)+1]+array[(index)+cols]+array[(index)+cols+1])/4);
+        num=ceil((array[index]+array[(index)+1]+array[(index)+cols]+array[(index)+cols+1])/4);
         newArr[n]=num;
         n++;
       }
