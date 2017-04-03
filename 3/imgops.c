@@ -251,12 +251,17 @@ void scale_brightness( uint8_t array[],
 {
     // your code here
     unsigned int i=0;
+    float num;
     for (i=0;i<cols*rows;i++)
     {
-      array[i]=round(array[i]*scale_factor);
-      if (array[i]>255)
+      num=round(array[i]*scale_factor);
+      if (num>255)
       {
         array[i]=255;
+      }
+      else
+      {
+        array[i]=num;
       }
     }
 }
@@ -291,7 +296,7 @@ void normalize( uint8_t array[],
     }
     for (i=0;i<cols*rows;i++)
     {
-      array[i]=array[i]*(255/max);
+      array[i]=array[i]*255/max;
     }
 }
 
@@ -321,9 +326,9 @@ uint8_t* half( const uint8_t array[],
     {
       cols=cols-1;
     }
-    for (i=0;i<rows/2;i++)
+    for (i=0;i<rows;i=i+2)
     {
-      for (k=0;k<cols/2;k++)
+      for (k=0;k<cols;k=k+2)
       {
         index=k+i*cols;
         newArr[index]=((array[2*index]+array[(2*index)+1]+array[(2*index)+cols]+array[(2*index)+cols+1])/4);
@@ -463,5 +468,5 @@ uint8_t* region_copy( const uint8_t array[],
   else
   {
     return NULL;
-  } 
+  }
 }
