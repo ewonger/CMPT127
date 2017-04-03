@@ -277,7 +277,7 @@ void normalize( uint8_t array[],
         unsigned int rows )
 {
     // your code here
-    unsigned int min=array[0],max=0,i=0,num;
+    unsigned int min=255,max=0,i=0,num;
 
     for (i=0;i<cols*rows;i++)
     {
@@ -334,8 +334,8 @@ uint8_t* half( const uint8_t array[],
       for (k=0;k<cols;k=k+2)
       {
         index=k+i*cols;
-        num=((array[index]+array[(index)+1]+array[(index)+cols]+array[(index)+cols+1])/4);
-        newArr[n]=num+1;
+        num=round((array[index]+array[(index)+1]+array[(index)+cols]+array[(index)+cols+1])/4);
+        newArr[n]=num;
         n++;
       }
     }
@@ -457,8 +457,8 @@ uint8_t* region_copy( const uint8_t array[],
   // your code here
   unsigned int i, k, index, n=0;
   uint8_t* newArr=malloc((right-left)*(bottom-top)*sizeof(uint8_t));
-  
-  if (newArr>0||right-left==0||bottom-top==0)
+
+  if (newArr>0||right-left>0||bottom-top>0)
   {
     memset(newArr,0,(right-left)*(bottom-top)*sizeof(uint8_t))
     for (i=top;i<bottom;i++)
