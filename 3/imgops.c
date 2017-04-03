@@ -277,7 +277,8 @@ void normalize( uint8_t array[],
         unsigned int rows )
 {
     // your code here
-    double min=255,max=0,i=0,num;
+    double min=255,max=0,num;
+    int i=0;
 
     for (i=0;i<cols*rows;i++)
     {
