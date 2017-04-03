@@ -167,6 +167,7 @@ void flip_horizontal( uint8_t array[],
       array[lastindex]=swap;
     }
   }
+}
 
 // flip the image top-to-bottom.
 void flip_vertical( uint8_t array[],
@@ -325,7 +326,7 @@ uint8_t* half( const uint8_t array[],
       for (k=0;k<cols/2;k++)
       {
         index=k+i*cols;
-        newArr[index]=(array[2*index]+array[(2*index)+1]+array[(2*index)+cols]+array[(2*index)+cols+1])/4);
+        newArr[index]=((array[2*index]+array[(2*index)+1]+array[(2*index)+cols]+array[(2*index)+cols+1])/4);
       }
     }
     return newArr;
@@ -462,5 +463,5 @@ uint8_t* region_copy( const uint8_t array[],
   else
   {
     return NULL;
-  }
+  } 
 }
