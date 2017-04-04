@@ -20,6 +20,10 @@ void draw_circle( uint8_t img[],
     {
       left=0;
     }
+    if (top<0)
+    {
+      top=0;
+    }
     for (i=top;i<=bottom;i++)
     {
       for (k=left;k<=right;k++)
