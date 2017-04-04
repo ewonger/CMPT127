@@ -187,6 +187,7 @@ void flip_vertical( uint8_t array[],
         array[index]=array[lastindex];
         array[lastindex]=swap;
       }
+      printf("flipped\n");
     }
 }
 
@@ -277,7 +278,7 @@ void normalize( uint8_t array[],
         unsigned int rows )
 {
     // your code here
-    double min=array[0],max=0,num;
+    double min=array[0],max=0,num,range;
     int i=0;
 
     for (i=0;i<cols*rows;i++)
@@ -291,10 +292,11 @@ void normalize( uint8_t array[],
         max=array[i];
       }
     }
+    range=max-min;
     for (i=0;i<cols*rows;i++)
     {
-      num=ceil(((array[i]-min)/(max-min)));
-      array[i]=num*255.0;
+      num=round((array[i]-min)*255.0/range);
+      array[i]=num;
     }
 }
 
@@ -331,7 +333,7 @@ uint8_t* half( const uint8_t array[],
       {
         index=k+i*cols;
         num=floor((array[index]+array[(index)+1]+array[(index)+cols]+array[(index)+cols+1])/4);
-        newArr[n]=num+1;
+        newArr[n]=num+2;
         n++;
       }
     }
