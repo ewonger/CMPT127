@@ -26,14 +26,20 @@ void draw_circle( uint8_t img[],
     }
     for (i=top;i<=bottom;i++)
     {
+      if (i>rows)
+      {
+        break;
+      }
       for (k=left;k<=right;k++)
       {
+
         index=k+i*cols;
         htopleft=hypot(k-0.5-x,i-0.5-y);
         htopright=hypot(k+0.5-x,i+0.5-y);
         hbotleft=hypot(k-0.5-x,i+0.5-y);
         hbotright=hypot(k+0.5-x,i-0.5-y);
-        if (k==cols)
+        printf("%d %d %d\n",i,k,cols);
+        if (k==cols||k==2*cols)
         {
           break;
         }
