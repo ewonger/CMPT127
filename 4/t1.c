@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void draw_circle( uint8_t img[],
                   unsigned int cols,
@@ -9,16 +10,37 @@ void draw_circle( uint8_t img[],
 		              int x,
 		              int y,
 		              int r,
-		              uint8_t color );
+		              uint8_t color )
 {
-  unsigned int i=0,k=0,index,left=x-r-1,right=x+r,top=y-r-1,bottom=y+r;
-
-  for (i=top;i<bottom;i++)
+  int i=0,k=0,index,left=x-r,right=x+r,top=y-r,bottom=y+r;
+  double htopleft,htopright,hbotleft,hbotright;
+  if (r>0)
   {
-    for (k=left;k<right;k++)
+    if (left<0)
     {
-      index=k+i*cols;
-      array[index]=color;
+      left=0;
+    }
+    for (i=top;i<=bottom;i++)
+    {
+      for (k=left;k<=right;k++)
+      {
+        index=k+i*cols;
+        htopleft=hypot(k-0.5-x,i-0.5-y);
+        htopright=hypot(k+0.5-x,i+0.5-y);
+        hbotleft=hypot(k-0.5-x,i+0.5-y);
+        hbotright=hypot(k+0.5-x,i-0.5-y);
+        if (k==cols)
+        {
+          break;
+        }
+        else
+        {
+          if (htopleft<r||htopright<r||hbotleft<r||hbotright<r)
+          {
+            img[index]=color;
+          }
+        }
+      }
     }
   }
 }
