@@ -18,33 +18,32 @@ void draw_circle( uint8_t img[],
   {
     for (i=y-r;i<=y+r;i++)
     {
-      if (i<0)
+      if (i>=0)
       {
-        i=0;
-      }
-      if (i>=rows+r)
-      {
-        break;
-      }
+      // if (i>=rows+r)
+      // {
+      //   break;
+      // }
       for (k=x-r;k<=x+r;k++)
       {
-        if (k<0)
+        if (k>=0)
         {
-          k=0;
-        }
         index=k+i*cols;
         htopleft=hypot(k-0.5-x,i-0.5-y);
         htopright=hypot(k+0.5-x,i+0.5-y);
         hbotleft=hypot(k-0.5-x,i+0.5-y);
         hbotright=hypot(k+0.5-x,i-0.5-y);
-        if (k==cols)
+        if (index<0||index>cols*rows||k>=cols)
         {
           break;
         }
         if (htopleft<r||htopright<r||hbotleft<r||hbotright<r)
         {
+        //  printf("(%d,%d)\n",k,i);
           img[index]=color;
         }
+        }
+      }
       }
     }
   }
