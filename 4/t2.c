@@ -25,15 +25,16 @@ void draw_rectangle( uint8_t array[],
       	for (k=x-rect_width;k<=x;k++)
       	{
         	index=k+i*cols;
-					if (index>0&&index<cols*rows&&k<=cols)
+					if (index<0||index>cols*rows||k>=cols)
 					{
-						if (k>=0)
-						{
-        			if (i==y-rect_height||i==y||k==x-rect_width||k==x)
-        			{
-          			array[index]=color;
-        			}
-						}
+						break;
+					}
+					if (k>=0)
+					{
+      			if (i==y-rect_height||i==y||k==x-rect_width||k==x)
+      			{
+        			array[index]=color;
+      			}
 					}
 				}
     	}
@@ -50,15 +51,16 @@ void draw_rectangle( uint8_t array[],
       	for (k=x;k<=x+rect_width;k++)
       	{
         	index=k+i*cols;
-					if (index>0&&index<cols*rows&&k<=cols)
+					if (index<0||index>cols*rows||k>=cols)
 					{
-						if (k>=0)
-						{
-        			if (i==y-rect_height||i==y||k==x+rect_width||k==x)
-        			{
-          			array[index]=color;
-        			}
-						}
+						break;
+					}
+					if (k>=0)
+					{
+      			if (i==y-rect_height||i==y||k==x+rect_width||k==x)
+      			{
+        			array[index]=color;
+      			}
 					}
 				}
     	}
@@ -75,15 +77,16 @@ void draw_rectangle( uint8_t array[],
       	for (k=x-rect_width;k<=x;k++)
       	{
         	index=k+i*cols;
-					if (index>0&&index<cols*rows&&k<=cols)
+					if (index<0||index>cols*rows||k>=cols)
 					{
-						if (k>=0)
-						{
-        			if (i==y+rect_height||i==y||k==x-rect_width||k==x)
-        			{
-          			array[index]=color;
-        			}
-						}
+						break;
+					}
+					if (k>=0)
+					{
+      			if (i==y+rect_height||i==y||k==x-rect_width||k==x)
+      			{
+        			array[index]=color;
+      			}
 					}
 				}
     	}
@@ -100,8 +103,10 @@ void draw_rectangle( uint8_t array[],
       	for (k=x;k<=x+rect_width;k++)
       	{
         	index=k+i*cols;
-					if (index>0&&index<cols*rows&&k<=cols)
+					if (index<0||index>cols*rows||k>=cols)
 					{
+						break;
+					}
 					if (k>=0)
 					{
         		if (i==y||i==y+rect_height||k==x||k==x+rect_width)
@@ -109,9 +114,8 @@ void draw_rectangle( uint8_t array[],
           		array[index]=color;
         		}
 			  	}
-					}
       	}
-			 }
+			}
     }
   }
 }
