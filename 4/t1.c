@@ -20,7 +20,7 @@ void draw_circle( uint8_t img[],
   }
   if (r>0)
   {
-    for (i=y-r;i<y+r;i++)
+    for (i=y-r;i<=y+r;i++)
     {
       if (i>=0)
       {
