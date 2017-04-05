@@ -330,7 +330,7 @@ uint8_t* half( const uint8_t array[],
       for (k=0;k<cols;k=k+2)
       {
         index=k+i*cols;
-        num=round((array[index]+array[(index)+1]+array[(index)+cols]+array[(index)+cols+1])/4.00;
+        num=round((array[index]+array[(index)+1]+array[(index)+cols]+array[(index)+cols+1])/4.00);
         newArr[n]=num;
         n++;
       }
