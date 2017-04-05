@@ -33,7 +33,7 @@ void draw_circle( uint8_t img[],
         htopright=hypot(k+0.5-x,i+0.5-y);
         hbotleft=hypot(k-0.5-x,i+0.5-y);
         hbotright=hypot(k+0.5-x,i-0.5-y);
-        if (index<0||index>cols*rows||k>=cols)
+        if (index<0||index>=cols*rows||k>=cols)
         {
           break;
         }
