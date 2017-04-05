@@ -14,7 +14,11 @@ void draw_circle( uint8_t img[],
 {
   int i=0,k=0,index;
   double htopleft,htopright,hbotleft,hbotright;
-  if (r>=0)
+  if (r==0)
+  {
+    return;
+  }
+  if (r>0)
   {
     for (i=y-r;i<=y+r;i++)
     {
