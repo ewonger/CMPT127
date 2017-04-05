@@ -25,8 +25,8 @@ void draw_rectangle( uint8_t array[],
       rect_height=rect_height*-1;
     }
 
-		rect_height=rect_height+1;
-		rect_width=rect_width+1;
+		rect_height=rect_height-1;
+		rect_width=rect_width-1;
     for (i=y-rect_height;i<=y;i++)
     {
 			if (i>=0)
@@ -42,6 +42,7 @@ void draw_rectangle( uint8_t array[],
 					{
         		if (i==y-rect_height||i==y||k==x-rect_width||k==x)
         		{
+							printf("(%d,%d)\n",k,i);
           		array[index]=color;
         		}
 					}
@@ -68,6 +69,7 @@ void draw_rectangle( uint8_t array[],
 					{
         		if (i==y||i==y+rect_height||k==x||k==x+rect_width)
         		{
+							printf("(%d,%d)\n",k,i);
           		array[index]=color;
         		}
 			  	}
