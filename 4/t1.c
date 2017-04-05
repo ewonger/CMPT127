@@ -14,16 +14,12 @@ void draw_circle( uint8_t img[],
 {
   int i=0,k=0,index;
   double htopleft,htopright,hbotleft,hbotright;
-  if (r>0)
+  if (r>=0)
   {
     for (i=y-r;i<=y+r;i++)
     {
       if (i>=0)
       {
-      // if (i>=rows+r)
-      // {
-      //   break;
-      // }
       for (k=x-r;k<=x+r;k++)
       {
         if (k>=0)
@@ -39,7 +35,6 @@ void draw_circle( uint8_t img[],
         }
         if (htopleft<r||htopright<r||hbotleft<r||hbotright<r)
         {
-        //  printf("(%d,%d)\n",k,i);
           img[index]=color;
         }
         }
