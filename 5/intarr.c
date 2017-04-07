@@ -115,7 +115,7 @@ intarr_result_t intarr_find( intarr_t* ia, int target, int* i )
     {
       if (ia->data[k]==target&&i!=NULL)
       {
-        i=&k;
+        *i=k;
         return INTARR_OK;
       }
     }
