@@ -156,11 +156,11 @@ intarr_result_t intarr_pop( intarr_t* ia, int* i )
       temp->len=ia->len;
       temp->data=malloc(ia->len*sizeof(intarr_t));
       memcpy(temp->data,ia->data,ia->len*sizeof(intarr_t));
+      *i=ia->data[ia->len-1];
       ia->data=malloc((ia->len-1)*sizeof(intarr_t));
       ia->len=ia->len-1;
       memcpy(ia->data,temp->data,(temp->len-1)*sizeof(intarr_t));
       free(temp);
-      i=&ia->data[ia->len-1];
       return INTARR_OK;
     }
     return INTARR_BADINDEX;
@@ -186,7 +186,6 @@ intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen )
       ia->len=newlen;
       memcpy(ia->data,temp->data,(newlen)*sizeof(intarr_t));
       free(temp);
-      return INTARR_OK;
     }
     else if (ia->len<newlen)
     {
@@ -202,8 +201,8 @@ intarr_result_t intarr_resize( intarr_t* ia, unsigned int newlen )
       ia->len=newlen;
       memcpy(ia->data,temp->data,(newlen)*sizeof(intarr_t));
       free(temp);
-      return INTARR_OK;
     }
+    return INTARR_OK;
   }
   return INTARR_BADARRAY;
 }
@@ -212,7 +211,7 @@ intarr_t* intarr_copy_subarray( intarr_t* ia,
                         				unsigned int first,
                         				unsigned int last )
 {
-  if (ia!=NULL&&first<ia->len&&last<ia->len&&first<last)
+  if (ia!=NULL&&first<ia->len&&last<ia->len&&first<=last)
   {
     int newarrlen=last-first+1,i=0,k;
     intarr_t* newarr=malloc(sizeof(intarr_t));
