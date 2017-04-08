@@ -15,7 +15,6 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
     {
       fwrite( &ia->len, sizeof(intarr_t),1,f);
       fwrite( ia->data, sizeof(intarr_t), ia->len, f );
-      printf("%d\n",ia->len);
       fclose( f );
       return 0;
     }
