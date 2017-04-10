@@ -1,59 +1,50 @@
-#include <stdint.h> // for uint8_t
-#include <stdlib.h> // for malloc()
-#include <string.h> // for memset()
 #include <stdio.h>
-#include <math.h>
 #include <assert.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "intarr.h"
 
 int intarr_save_json( intarr_t* ia, const char* filename )
 {
-  int i=0;
 	if (ia == NULL)
-  {
-    return 1;
-  }
-	FILE* f=fopen(filename,"w");
-	if (f== NULL)
-  {
-    return 1;
-  }
+	{
+		return 1;
+	}
+	FILE* f= fopen(filename,"w");
+	if (f == NULL)
+	{
+		return 1;
+	}
 	fprintf(f,"[\n");
-	for (i=0; i<ia->len; i++)
-  {
-		if (i==ia->len-1)
-    {
+	for (int i=0; i<ia->len; i++)
+		{
 			fprintf(f," %d\n",ia->data[i]);
 		}
-		else
-    {
-			fprintf(f," %d,\n",ia->data[i]);
-		}
-	}
-  fprintf(f,"]");
-  fclose(f);
-  return 0;
+	fprintf(f,"]");
+	fclose(f);
+	return 0;
 }
 
-intarr_t* intarr_load_json( const char* filename )
-{
-	FILE* f=fopen(filename, "r");
-	if (f==NULL)
-  {
+intarr_t* intarr_load_json( const char* filename ){
+	FILE* f = fopen(filename, "r");
+	if (f == NULL)
+	{
 		return NULL;
 	}
-	intarr_t* createarr=intarr_create(0);
-  int num;
-	fscanf(f,"%d ",&num);
-  char arr[100];
-	while (fgets(arr,100,f))
-  {
-		if (arr[0] == ']'||sscanf(arr,"%d",&num)!=1)
-    {
+	intarr_t* newarr = intarr_create(0);
+	int num;
+	fscanf(f,"%c ",&num);
+	char array[100];
+	while (fgets(array,100,f))
+	{
+		if (array[0] == ']' || sscanf(array,"%d",&num)!=1)
+		{
 			break;
 		}
-		intarr_push(createarr,num);
+		intarr_push(newarr,num);
 	}
 	fclose(f);
-	return createarr;
+	return newarr;
 }
