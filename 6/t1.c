@@ -14,14 +14,11 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
   {
     return 1;
   }
-
   if (fwrite(ia->data,sizeof(int),ia->len,f) != ia->len)
   {
     return 1;
   }
-
   fclose(f);
-
   return 0;
 
 }
@@ -41,8 +38,7 @@ intarr_t* intarr_load_binary( const char* filename )
 
   FILE * f = fopen(filename,"r");
   fseek(f,0,SEEK_END);
-  int len = (ftell(f))/(sizeof(int));  // byte size / sizeof(int) = len of array
-
+  int len = (ftell(f))/(sizeof(int));
   if ( f == NULL ||len < 0)
   {
     return NULL;
@@ -50,10 +46,8 @@ intarr_t* intarr_load_binary( const char* filename )
   intarr_t *newarr;
   newarr = intarr_create(len);
   fseek(f,0,SEEK_SET);
-
   if (fread(newarr->data,sizeof(int),len,f) !=len)
   {
-
     return NULL;
   }
   fclose(f);
