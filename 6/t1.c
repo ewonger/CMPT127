@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
+#include <sys/stat.h>
 #include "intarr.h"
 
 int intarr_save_binary( intarr_t* ia, const char* filename )
@@ -12,30 +13,42 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
   {
     FILE* f = fopen( filename, "w" );
     if (f!=NULL)
+    if (fwrite(ia->data,sizeof(int),ia->len,f)!=ia->len)
     {
-      fwrite( &ia->len, sizeof(int),1,f);
-      fwrite( ia->data, sizeof(int), ia->len, f );
-      fclose( f );
-      return 0;
+      return 1;
     }
+    fclose(f);
+    return 0;
   }
   return 1;
 }
 
 intarr_t* intarr_load_binary( const char* filename )
 {
-  int len;
+  struct stat buf;
+  int file = stat(filename,&buf);
+  if (file==-1)
+  {
+    return NULL;
+  }
   if (filename!=NULL)
   {
   FILE* f=fopen(filename,"r");
   if (f!=NULL)
   {
-    intarr_t* newarr;
-    newarr=malloc(sizeof(intarr_t));
-    fread(&newarr->len,sizeof(int),1,f);
-    newarr->data=malloc(newarr->len*sizeof(int));
-    fread(newarr->data,sizeof(int),newarr->len,f);
-    fclose( f );
+    fseek(f,0,SEEK_END);
+    int len = (ftell(f))/(sizeof(int));
+    if (len< 0)
+    {
+      return NULL;
+    }
+    intarr_t *newarr=intarr_create(len);
+    fseek(f,0,SEEK_SET);
+    if (fread(newarr->data,sizeof(int),len,f) !=len)
+    {
+      return NULL;
+    }
+    fclose(f);
     return newarr;
   }
 }
