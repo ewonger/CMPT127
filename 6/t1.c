@@ -31,7 +31,7 @@ intarr_t* intarr_load_binary( const char* filename )
   {
     return NULL;
   }
-  if (file == NULL)
+  if (filename == NULL)
   {
     return NULL;
   }
@@ -39,7 +39,11 @@ intarr_t* intarr_load_binary( const char* filename )
   FILE * f = fopen(filename,"r");
   fseek(f,0,SEEK_END);
   int len = (ftell(f))/(sizeof(int));
-  if ( f == NULL ||len < 0)
+  if ( f == NULL)
+  {
+    return NULL;
+  }
+  if (len < 0)
   {
     return NULL;
   }
