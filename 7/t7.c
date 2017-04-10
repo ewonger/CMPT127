@@ -1,5 +1,6 @@
 #include <stdint.h> // for uint8_t
 #include <stdlib.h> // for malloc()
+#include <stdio.h>
 
 #include "list.h"
 
