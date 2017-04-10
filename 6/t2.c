@@ -14,15 +14,15 @@ int intarr_save_json( intarr_t* ia, const char* filename )
 		FILE* f=fopen(filename,"w");
 		if (f!= NULL)
     {
-			fprintf(f,"[");
+			fprintf(f,"[\n");
 			for (i=0; i<ia->len; i++)
       {
 				if (i == ia->len-1)
         {
-					fprintf(f," %d ",ia->data[i]);
+					fprintf(f," %d\n",ia->data[i]);
 				}
 				else{
-					fprintf(f," %d,",ia->data[i]);
+					fprintf(f," %d,\n",ia->data[i]);
 				}
 			}
 		fprintf(f,"]");
@@ -36,22 +36,22 @@ int intarr_save_json( intarr_t* ia, const char* filename )
 intarr_t* intarr_load_json( const char* filename )
 {
   int num;
-  char arr[100];
+  char arr[1000];
 	FILE* f=fopen(filename, "r");
 	if (f==NULL)
   {
 		return NULL;
 	}
-	intarr_t* load=intarr_create(0);
-	fscanf(f,"%c ",&num);
+	intarr_t* createarr=intarr_create(0);
+	fscanf(f,"%d ",&num);
 	while (fgets(arr,100,f))
   {
-		if (arr[0] == ']'||sscanf(arr,"%d",&num)!=1)
+		if (arr[0] == ']'||scanf(arr,"%d",&num)!=1)
     {
 			break;
 		}
-		intarr_push(load,num);
+		intarr_push(createarr,num);
 	}
 	fclose(f);
-	return load;
+	return createarr;
 }
