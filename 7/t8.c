@@ -44,7 +44,7 @@ void list_sort( list_t* list )
       {
 				list_append(l2,swp->val);
 			}
-			swp = sweep->next;
+			swp = swp->next;
 		}
 		list->head = NULL;
 		list->tail = NULL;
