@@ -156,7 +156,7 @@ void ship_draw( const ship_t* ship )
   int wdaddx=ship->x+wrapx+dx, wdaddy=ship->x+wrapy+dy;
   int wdminx=ship->x+wrapx-dx, wdminy=ship->x+wrapy-dy;
   int wladdx=ship->x+wrapx+lx, wladdy=ship->x+wrapy+ly;
-  int wraddx=ship->x+wrapx+rx, wladdy=ship->x+wrapy+ry;
+  int wraddx=ship->x+wrapx+rx, wraddy=ship->x+wrapy+ry;
 
 	for(wrapx=-1;wrapx<2;wrapx++)
   {
@@ -488,7 +488,7 @@ int main(int argc, char** argv)
   size_t level = 0;
 
   while( 1 )
-    {
+  {
       gui_handle_events(); // check for any action in the user interface
 
       // if we are starting up or all the roids are gone, start a new level
@@ -504,9 +504,9 @@ int main(int argc, char** argv)
 	  // check each roid for shot hits
 	  for( int j=0; j<numroids; j++ )
 	    {
-	      if( roids[j].lifetime == 0 ) // if roid has already taken enough hits, skip over it.
-		break;
-
+	      if( roids[j].lifetime == 0 ){ // if roid has already taken enough hits, skip over it.
+		      break;
+        }
 	      for( int i=0; i<numshots; i++ )
 		{
 		  if( shots[i].lifetime && shot_roid_hit( &shots[i], &roids[j] ))
@@ -523,6 +523,7 @@ int main(int argc, char** argv)
 
 		      break; // only one shot can impact a roid per update
 		    }
+      }
 		}
 	    }
 
@@ -533,10 +534,12 @@ int main(int argc, char** argv)
 	  ship_update( &ship );
 
 	  for( int i=0; i<numshots; i++ )
+    {
 	    shot_update( &shots[i] );
-
-	  for( int i=0; i<numroids; i++ )
+}
+	  for( int i=0; i<numroids; i++ ){
 	    roid_update( &roids[i] );
+    }
 
 	  // ask the GUI to redraw the window when it's ready to do so.
 	  gui_redraw();
@@ -544,6 +547,6 @@ int main(int argc, char** argv)
 
       usleep( SLEEP_USEC ); // slow things down for humans
     }
-
+}
   return 0;
 }
