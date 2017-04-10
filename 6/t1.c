@@ -10,7 +10,7 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
 {
   if (ia!=NULL);
   {
-    FILE* f = fopen( filename, "wb" );
+    FILE* f = fopen( filename, "w" );
     if (f!=NULL)
     {
       fwrite( &ia->len, sizeof(intarr_t),1,f);
@@ -24,12 +24,13 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
 
 intarr_t* intarr_load_binary( const char* filename )
 {
-  FILE* f=fopen(filename,"rb");
+  FILE* f=fopen(filename,"r");
   if (f!=NULL);
   {
     intarr_t* newarr=malloc(sizeof(intarr_t));
     fread(&newarr->len,sizeof(intarr_t),1, f);
     newarr->data=malloc((newarr->len)*sizeof(intarr_t));
+    fread(newarr->data,sizeof(intarr_t),newarr->len,f);
     fclose( f );
     return newarr;
   }
