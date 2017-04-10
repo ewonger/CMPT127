@@ -1,56 +1,61 @@
-#include <stdint.h> // for uint8_t
-#include <stdlib.h> // for malloc()
-#include <string.h> // for memset()
 #include <stdio.h>
-#include <math.h>
-#include <assert.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include "intarr.h"
 
 int intarr_save_binary( intarr_t* ia, const char* filename )
 {
-  if (ia!=NULL&&filename!=NULL);
+  if (ia== NULL)
   {
-    FILE* f = fopen( filename, "w" );
-    if (f!=NULL)
-    if (fwrite(ia->data,sizeof(int),ia->len,f)!=ia->len)
-    {
-      return 1;
-    }
-    fclose(f);
-    return 0;
+    return 1;
   }
-  return 1;
+  FILE * f = fopen(filename,"w");
+  if (f == NULL)
+  {
+    return 1;
+  }
+
+  if (fwrite(ia->data,sizeof(int),ia->len,f) != ia->len)
+  {
+    return 1;
+  }
+
+  fclose(f);
+
+  return 0;
+
 }
 
 intarr_t* intarr_load_binary( const char* filename )
 {
   struct stat buf;
   int file = stat(filename,&buf);
-  if (file==-1)
+  if (file == -1)
   {
     return NULL;
   }
-  if (filename!=NULL)
+  if (file == NULL)
   {
-  FILE* f=fopen(filename,"r");
-  if (f!=NULL)
-  {
-    fseek(f,0,SEEK_END);
-    int len = (ftell(f))/(sizeof(int));
-    if (len< 0)
-    {
-      return NULL;
-    }
-    intarr_t *newarr=intarr_create(len);
-    fseek(f,0,SEEK_SET);
-    if (fread(newarr->data,sizeof(int),len,f) !=len)
-    {
-      return NULL;
-    }
-    fclose(f);
-    return newarr;
+    return NULL;
   }
-}
-  return NULL;
+
+  FILE * f = fopen(filename,"r");
+  fseek(f,0,SEEK_END);
+  int len = (ftell(f))/(sizeof(int));  // byte size / sizeof(int) = len of array
+
+  if ( f == NULL ||len < 0)
+  {
+    return NULL;
+  }
+  intarr_t *newarr;
+  newarr = intarr_create(len);
+  fseek(f,0,SEEK_SET);
+
+  if (fread(newarr->data,sizeof(int),len,f) !=len)
+  {
+
+    return NULL;
+  }
+  fclose(f);
+  return newarr;
 }
