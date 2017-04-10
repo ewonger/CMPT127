@@ -13,9 +13,14 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
     FILE* f = fopen( filename, "w" );
     if (f!=NULL)
     {
-      fwrite( &ia->len, sizeof(intarr_t),1,f);
-      fwrite( ia->data, sizeof(intarr_t), ia->len, f );
+      fwrite( &ia->len, sizeof(int),1,f);
+      fwrite( ia->data, sizeof(int), ia->len, f );
+      printf("ia len is %d\n",ia->len);
       fclose( f );
+      for (int i=0;i<ia->len;i++){
+        printf("%d, ",ia->data[i]);
+      }
+      printf("\n");
       return 0;
     }
   }
@@ -24,13 +29,15 @@ int intarr_save_binary( intarr_t* ia, const char* filename )
 
 intarr_t* intarr_load_binary( const char* filename )
 {
+  int len;
   FILE* f=fopen(filename,"r");
-  if (f!=NULL);
+  if (f!=NULL&&filename!=NULL)
   {
-    intarr_t* newarr=malloc(sizeof(intarr_t));
-    fread(&newarr->len,sizeof(intarr_t),1, f);
-    newarr->data=malloc((newarr->len)*sizeof(intarr_t));
-    fread(newarr->data,sizeof(intarr_t),newarr->len,f);
+    intarr_t* newarr;
+    newarr=malloc(sizeof(intarr_t));
+    fread(&newarr->len,sizeof(int),1,f);
+    newarr->data=malloc(newarr->len*sizeof(int));
+    fread(newarr->data,sizeof(int),newarr->len,f);
     fclose( f );
     return newarr;
   }
