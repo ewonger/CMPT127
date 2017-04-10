@@ -37,18 +37,18 @@ int intarr_save_json( intarr_t* ia, const char* filename )
 
 intarr_t* intarr_load_json( const char* filename )
 {
-  int num;
-  char arr[1000];
 	FILE* f=fopen(filename, "r");
 	if (f==NULL)
   {
 		return NULL;
 	}
 	intarr_t* createarr=intarr_create(0);
+  int num;
 	fscanf(f,"%d ",&num);
-	while (fgets(arr,1000,f))
+  char arr[100];
+	while (fgets(arr,100,f))
   {
-		if (arr[0] == ']'||scanf(arr,"%d",&num)!=1)
+		if (arr[0] == ']'||sscanf(arr,"%d",&num)!=1)
     {
 			break;
 		}
