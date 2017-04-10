@@ -152,23 +152,24 @@ void ship_draw( const ship_t* ship )
      more drawing so that the ship and its thrust jet appears to
      wrap around the 1x1 world correctly.
   */
-  int wrapx,wrapy;
-  int wdaddx=ship->x+wrapx+dx, wdaddy=ship->x+wrapy+dy;
-  int wdminx=ship->x+wrapx-dx, wdminy=ship->x+wrapy-dy;
-  int wladdx=ship->x+wrapx+lx, wladdy=ship->x+wrapy+ly;
-  int wraddx=ship->x+wrapx+rx, wraddy=ship->x+wrapy+ry;
-
-	for(wrapx=-1;wrapx<2;wrapx++)
+  for (int i=-1;i<=1;i++)
   {
-  	for(wrapy=-1;wrapy<2;wrapy++)
+    for(int k=-1;k<=1;k++)
     {
-    	draw_triangle( wdaddx,wdaddy,wladdx,wladdy,wraddx,wraddy,shipcolor);
-    	if(ship->thrust)
-      {
-        draw_triangle( wdminx,wdminy,wladdx,wladdy,wraddx,wraddy,thrustcolor );
-      }
+      draw_triangle( ship->x + i + dx, ship->y + k + dy,
+         ship->x + i + lx, ship->y + k + ly,
+         ship->x + i + rx, ship->y + k + ry,
+         shipcolor );
+
+      if( ship->thrust )
+        {
+          draw_triangle( ship->x + i - dx, ship->y + k - dy,
+             ship->x + i + lx, ship->y + k + ly,
+             ship->x + i + rx, ship->y + k + ry,
+             thrustcolor );
+           }
     }
-	}
+  }
 }
 
 // -- functions that operate on shots --------------------------------
@@ -344,7 +345,16 @@ void roid_draw( const roid_t* roid )
      more drawing so that the roids appear to wrap around the
      1x1 world correctly.
   */
+  for (int i=-1;i<=1;i++)
+  {
+    for (int k=-1;k<=1;k++)
+    {
+      draw_rectangle( roid->x+i-roid->width/2.0, roid->y+k-roid->height/2.0,
+          roid->x+i+roid->width/2.0, roid->y+k+roid->height/2,
+          roid->color );
+    }
   }
+}
 
 /* Remove all roids that have lifetime of zero from the global array
    @roids. Update @numroids to reflect the new length of the array. */
@@ -370,21 +380,20 @@ int shot_roid_hit( const shot_t* shot, const roid_t* roid )
   /* TODO: modify this code so it takes into account the toroidal
      shape of the world.
    */
-  int wrapx,wrapy;
-  for (wrapx=-1; wrapx<2; wrapx++)
+  for(int i=-1;i<=+1;i++)
   {
-    for (wrapy=-1; wrapy<2; wrapy++)
-    {
-      if( shot->x >= roid->x - roid->width/2 &&
-  	  shot->x <= roid->x + roid->width/2 &&
-  	  shot->y >= roid->y - roid->height/2 &&
-  	  shot->y <= roid->y + roid->height/2 )
-      {
-        return 1;
-      }
-    }
-  }
-  return 0;
+     for(int k=-1;k<=+1;k++)
+     {
+       if( shot->x+i >= roid->x - roid->width/2 &&
+         shot->x+i <= roid->x + roid->width/2 &&
+         shot->y+k >= roid->y - roid->height/2 &&
+         shot->y+k <= roid->y + roid->height/2 ){
+
+          return 1;
+        }
+     }
+   }
+ return 0;
 }
 
 /* Modify roid speed by applying a force with magnitude @SHOT_THRUST
